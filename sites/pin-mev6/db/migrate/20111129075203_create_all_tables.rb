@@ -1,5 +1,5 @@
 class CreateAllTables < ActiveRecord::Migration
-  def self.change
+  def change
     create_table "cooperation_channels", :force => true do |t|
       t.integer  "mindmap_id"
       t.integer  "channel_id"

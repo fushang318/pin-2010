@@ -1,5 +1,5 @@
 class CreateAllTables < ActiveRecord::Migration
-  def self.change
+  def change
     create_table "activation_codes", :force => true do |t|
       t.string   "code"
       t.integer  "user_id"
