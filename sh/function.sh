@@ -26,6 +26,8 @@ function get_rails_env()
 {
   if [ $HOST == "linux-76bi" ];then
     echo "development"
+  elif [ $HOST == "linux-9dqd" ];then
+    echo "development"
   elif [ $HOST == "linux-mindpin" ];then
     echo "production"
   else
