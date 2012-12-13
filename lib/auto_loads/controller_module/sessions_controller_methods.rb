@@ -22,12 +22,7 @@ module SessionsControllerMethods
       destroy_online_record(user)
     end
 
-    site = case params[:call]
-    when 'tu' then 'pin-daotu'
-    else 'pin-user-auth'
-    end
-
-    return redirect_to pin_url_for(site,'/login')
+    return redirect_to '/login'
   end
 
   private
@@ -41,17 +36,12 @@ module SessionsControllerMethods
     end
 
     def _create_web
-      site = case params[:call]
-      when 'tu' then 'pin-daotu'
-      else 'pin-user-auth'
-      end
-
       if logged_in?
         after_logged_in()
-        return redirect_to pin_url_for(site,'/')
+        return redirect_to '/'
       else
         flash[:error]="邮箱/密码不正确"
-        return redirect_to pin_url_for(site,'/login')
+        return redirect_to '/login'
       end
     end
 end

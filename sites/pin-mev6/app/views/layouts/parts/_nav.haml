@@ -8,11 +8,8 @@
       -user_name = user.name
       -homepage_url = "/users/#{user.id}"
 
-      -account_url = pin_url_for('pin-user-auth','/account?call=tu')
-      -logout_url  = pin_url_for('pin-user-auth','/logout?call=tu')
-
       .nav-menu
         %a{:href=>homepage_url, :class=>'ali user-name'} <div class="icon"></div><span>#{user_name}</span>
 
-        %a{:href=>account_url, :class=>'setting', :tip=>'设置'} <div class="icon"></div><span>设置</span>
-        %a{:href=>logout_url,  :class=>'logout',  :tip=>'退出'} <div class="icon"></div><span>退出</span>
+        %a{:href=>'/account', :class=>'setting', :tip=>'设置'} <div class="icon"></div><span>设置</span>
+        %a{:href=>'/logout',  :class=>'logout',  :tip=>'退出'} <div class="icon"></div><span>退出</span>

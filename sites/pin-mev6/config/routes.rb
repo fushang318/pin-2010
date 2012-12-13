@@ -1,4 +1,10 @@
 Mindpin::Application.routes.draw do
+  # -- 从 user-auth 迁移的
+  post '/login'  => 'sessions#create'
+  get  '/logout' => 'sessions#destroy'
+
+  get  '/signup'        => 'signup#form'
+  post '/signup_submit' => 'signup#form_submit'
   # ---------------- 首页和欢迎页面 ---------
   root :to => 'index#index'
   get '/login' => 'index#index'
