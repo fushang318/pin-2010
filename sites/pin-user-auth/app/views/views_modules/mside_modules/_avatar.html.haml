@@ -1,9 +1,0 @@
-.page-mside-avatar
-  .name=usersign user
-  .avatar=user_avatar_big user
-  .ops
-    -if logged_in?
-      -if user == current_user
-        %a.minibutton.edit{:href=>"/account"} <span>用户设置</span>
-      -else
-        %a.minibutton.show{:href=>"javascript:;"} <span>加入联系人</span>
