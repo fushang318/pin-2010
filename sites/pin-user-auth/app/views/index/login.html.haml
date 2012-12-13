@@ -52,11 +52,6 @@
                 %span=flash[:error]
 
             .p3
-              .field.tsina
-                .connects
-                  %a.connect.tsina-weibo.middlebutton.loginred{:href=>connect_tsina_url,:title=>'使用新浪微博账号登陆'}
-                    .icon
-                    .name 微博登录
               .field.wallpaper
                 -if !wallpaper.blank?
                   .wallpaper-toggle{:style=>'display:none;'}

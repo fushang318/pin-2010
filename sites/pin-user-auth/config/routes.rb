@@ -208,22 +208,6 @@ def match_photos_and_entries_routes
   post '/photos/import_image_url'=> 'photos#import_image_url'
 end
 
-def match_tsina_app_routes
-  namespace(:apps) do
-    get 'tsina/mindpin'              => 'tsina_app_mindpin#index'
-    get 'tsina/mindpin/connect'      => 'tsina_app_mindpin#connect'
-    get 'tsina/mindpin/callback'     => 'tsina_app_mindpin#callback'
-
-    get 'tsina/tu'                   => 'tsina_app_tu#index'
-    get 'tsina/tu/connect'           => 'tsina_app_tu#connect'
-    get 'tsina/tu/callback'          => 'tsina_app_tu#callback'
-
-    get 'tsina/schedule'             => 'tsina_app_schedule#index'
-    get 'tsina/schedule/connect'     => 'tsina_app_schedule#connect'
-    get 'tsina/schedule/callback'    => 'tsina_app_schedule#callback'
-  end
-end
-
 def match_weibo_routes
   namespace :web_weibo, :path=>'weibo' do
     get '/'                           => 'timeline#home_timeline'  # 微博首页
@@ -280,8 +264,6 @@ Mindpin::Application.routes.draw do
   match_collections_routes
 
   match_photos_and_entries_routes
-
-  match_tsina_app_routes
 
   resources :notices do
     collection do
