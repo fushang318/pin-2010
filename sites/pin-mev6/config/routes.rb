@@ -14,6 +14,12 @@ Mindpin::Application.routes.draw do
   get  "/account/avatared"               => 'setting#avatared'
   post "/account/avatared_submit_raw"    => 'setting#avatared_submit_raw'
   post "/account/avatared_submit_copper" => 'setting#avatared_submit_copper'
+  
+  # -- 忘记密码 --
+  get  'forgot_password'                => 'forgot_password#form'
+  post 'forgot_password/submit'         => 'forgot_password#form_submit'
+  get  'reset_password/:pw_code'        => 'forgot_password#reset'
+  put  'reset_password_submit/:pw_code' => 'forgot_password#reset_submit'
   # ---------------- 首页和欢迎页面 ---------
   root :to => 'index#index'
   get '/login' => 'index#index'
