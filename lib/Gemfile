@@ -31,7 +31,7 @@ gem 'rubyzip', '0.9.4', :require => 'zip/zip'
 gem 'resque'
 
 # paperclip
-gem 'paperclip', '~> 2.4'
+gem 'paperclip', '~> 2.7'
 gem 'paperclip-meta'
 
 gem 'weibo'

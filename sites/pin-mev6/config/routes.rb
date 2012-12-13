@@ -5,6 +5,15 @@ Mindpin::Application.routes.draw do
 
   get  '/signup'        => 'signup#form'
   post '/signup_submit' => 'signup#form_submit'
+
+  # 基本信息
+  get  "/account"                     => "setting#base"
+  put  "/account"                     => "setting#base_submit"
+
+  # 头像设置
+  get  "/account/avatared"               => 'setting#avatared'
+  post "/account/avatared_submit_raw"    => 'setting#avatared_submit_raw'
+  post "/account/avatared_submit_copper" => 'setting#avatared_submit_copper'
   # ---------------- 首页和欢迎页面 ---------
   root :to => 'index#index'
   get '/login' => 'index#index'
