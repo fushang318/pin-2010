@@ -48,19 +48,6 @@
 %table
   %thead
     %tr
-      %th MINDPIN WORKER
-      %th 状态
-      %th PID
-      %th 日志大小
-      %th 日志更新时间
-      %th 操作
-  %tbody
-    -PathConfig::USER_AUTH_QUEUES.each do |queue,project_name|
-      %tr=render :partial=>"index/parts/resque_queue_worker_stat",:locals=>{:queue_name=>queue,:project_name=>project_name}
-      
-%table
-  %thead
-    %tr
       %th DAOTU WORKER
       %th 状态
       %th PID

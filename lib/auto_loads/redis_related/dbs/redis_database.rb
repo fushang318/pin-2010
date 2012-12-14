@@ -1,6 +1,5 @@
 class RedisDatabase
   QUEUE_DB = '0'
-  TIP_DB   = '1'
   
   if Rails.env.test?
     CACHE_DB = 3
