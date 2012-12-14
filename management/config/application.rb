@@ -6,7 +6,7 @@ require "active_resource/railtie"
 require "rails/test_unit/railtie"
 
 if defined?(Bundler)
-  Bundler.require(*Rails.groups(:assets => %w(development test)))
+  Bundler.require(:default, :assets, Rails.env)
 end
 
 module Management

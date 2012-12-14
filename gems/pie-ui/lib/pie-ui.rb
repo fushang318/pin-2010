@@ -69,11 +69,6 @@ end
 # 字符串扩展
 require 'pie-ui/string_util'
 
-# grit初始化
-require 'repo/grit_init'
-Grit::Repo.send(:include,RepoInit)
-Grit::Diff.send(:include,DiffInit)
-
 # 声明邮件服务配置
 if defined? ActionMailer::Base
   ActionMailer::Base.smtp_settings = {

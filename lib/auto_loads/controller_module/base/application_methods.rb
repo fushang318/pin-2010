@@ -10,8 +10,6 @@ module ApplicationMethods
     base.before_filter :fix_ie_accept
     # 对错误显示友好的页面
     base.around_filter :catch_template_exception
-    # 强制信息不完整的用户补充信息
-    base.before_filter :force_to_complete
   end
 
   #-----------------------
@@ -74,19 +72,6 @@ module ApplicationMethods
 
   def is_android_client?
     request.headers["User-Agent"] == "android"
-  end
-
-  # 快速连接账号补全信息，部分地址放行
-  def force_to_complete
-    return true if [
-      ["account/complete", "index"  ],
-      ["account/complete", "submit" ],
-      ["account/sessions", "destroy"],
-    ].include? [params[:controller], params[:action]]
-
-    if logged_in? && current_user.is_user_info_incomplete?
-      redirect_to pin_url_for("pin-user-auth","/account/complete")
-    end
   end
 
 end
