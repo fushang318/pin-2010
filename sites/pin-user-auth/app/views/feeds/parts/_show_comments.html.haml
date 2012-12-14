@@ -1,0 +1,53 @@
+-feed_id = feed.id
+-feed_creator = feed.creator
+
+.page-feed-show-comments
+  .c-top 评论 @mindpin
+
+  -if logged_in?
+    -cls = ( feed_creator == current_user ? 'of_creator':'')
+    .comment-form{:'data-feed-id'=>feed_id, :class=>cls}
+      .arrow ◆
+      .avatar
+        =avatar current_user,:tiny
+      .cfmain
+        .cta>
+          %textarea.comment-ipter.text>
+        .cfops
+          .fright
+            %span.submit-info
+            %a.minibutton.commit{:href=>"javascript:;"} <span>评论</span>
+
+  .comments
+    -if comments.blank?
+      .comment.blank 现在还没有评论
+    -else
+      -prev_user = nil
+      -comments.each do |comment|
+        -user = comment.user
+        -created_at = comment.created_at
+        -can_be_delete = logged_in? && [feed_creator, user].include?(current_user)
+
+        -clsa = (user == feed_creator ? 'of_creator':'')
+        -clsb = (user == prev_user ? 'same-user':'')
+        -cls  = [clsa,clsb]*' '
+
+        -prev_user = user
+
+        .comment{:'data-id'=>comment.id,:'data-user-name'=>user.name,:class=>cls}
+          .arrow ◆
+          .avatar
+            =avatar user,:tiny
+          .cmain
+            .cdata
+              .meta
+                .name.quiet
+                  =usersign user
+                .ops
+                  -if can_be_delete
+                    =link_to '删除','javascript:;',:class=>'delete'
+                    %span.quiet -
+                  =link_to '回复','javascript:;',:class=>'reply'
+              .ctext.wordwrap
+                =h comment.content
+                %span.quiet (#{jtime created_at})

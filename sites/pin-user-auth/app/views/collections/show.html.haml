@@ -1,0 +1,30 @@
+-#use collection列表页
+-#see 顶部导航栏 collections
+
+-htitle "#{@collection.title}"
+
+-creator = @collection.creator
+-is_current_user = (creator == current_user)
+-title = @collection.title
+-feeds = @collection.feeds
+
+.main.grid_24.no-line
+  .page-collection-top
+    .meta
+      %h2=title
+      .ops
+        -if is_current_user
+          %a.create{:href=>"/feeds/new?collection=#{@collection.id}"} <span class='icon'></span><span>创建主题</span>
+          %a.minibutton.edit{:href=>"/collections/#{@collection.id}/edit"} <span>修改</span>
+    .foot
+      .creator
+        .avatar=avatar creator,:tiny
+        .desc 由
+        .name=usersign creator
+        .desc 创建
+      .f-count
+        共 #{feeds.length} 个主题
+
+  =prender 'feed','grid',:feeds=>feeds,:hide_creator=>true
+            
+

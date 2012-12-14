@@ -1,0 +1,51 @@
+-# /weibo/home_timeline
+
+-hjavascript pin_url_for('ui','/singlejs/jquery.isotope.min.js')
+-hjavascript pin_url_for('ui','/singlejs/web_weibo/home_timeline.js')
+
+:ruby
+  user   = current_user
+  weibo  = user.tsina_weibo
+  verify = weibo.verify_credentials
+
+  weibo_user_id = verify.id
+  weibo_user_avatar_url = verify.profile_image_url.sub('/50/','/180/')
+  weibo_user_name = verify.name
+
+  weibo_followers_count = verify.followers_count
+  weibo_friends_count   = verify.friends_count
+  weibo_statuses_count  = verify.statuses_count
+
+  trends = weibo.trends_hourly(:base_app=>0)[:trends].first[1]
+
+-htitle "#{user.name}的新浪微博"
+
+.main
+  =render 'web_weibo/timeline/part/my_toolbar', :weibo_user_id=>weibo_user_id
+
+  .page-web-weibo-statuses{:style=>'display:none;'}
+    .weibo-trends.gi
+      .t 热门话题
+      -trends.each do |t|
+        %a.trend{:href=>"/weibo/trends/#{URI.encode t.name}"}=t.name
+
+    .weibo-user-info.gi
+      .name=weibo_user_name
+      .counts
+        .count.followers
+          .n=weibo_followers_count
+          .t 粉丝
+        .count.friends
+          .n=weibo_friends_count
+          .t 关注
+        .count.statuses
+          .n=weibo_statuses_count
+          .t 微博
+
+      .form.hide
+        .arrow
+        %textarea.weibo-ipt
+
+    =render 'web_weibo/timeline/part/statuses', :statuses=>@statuses
+
+  %a.page-web-weibo-load-more{:href=>'javascript:;',:'data-url'=>'/weibo',:style=>'display:none;'} <span>LOAD MORE</span>

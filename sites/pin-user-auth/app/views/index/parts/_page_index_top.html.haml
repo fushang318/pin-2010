@@ -1,0 +1,44 @@
+-# 传入参数 user
+
+-hjavascript pin_url_for('ui','/singlejs/follow_and_unfollow.js')
+-hjavascript pin_url_for('ui','/singlejs/page_index_top.js')
+
+
+-user_id = user.id
+-user_page_url = pin_url_for('pin-user-auth',"/users/#{user_id}")
+
+-is_me = logged_in? && (user == current_user)
+
+-cover_src = current_user.preference.head_cover.url
+
+.page-index-top
+  .wallpaper{:'data-src'=>cover_src}
+
+  .avatar=link_to avatar(user,:large),user_page_url
+
+  =render_with_error_msg '联系人数据错误','index/parts/page_index_top_contacts',:user=>user
+  =render_with_error_msg '条目数据错误','index/parts/page_index_top_feeds',:user=>user
+  =render_with_error_msg '汇集册数据错误','index/parts/page_index_top_collections',:user=>user
+  =render_with_error_msg '微博API错误','index/parts/page_index_top_weibo',:user=>user
+
+  .clearfix
+
+  .misc-ops
+    -if logged_in?
+      -if is_me
+        -#
+      -else
+        -has_followed = current_user.following?(user)
+
+        .follow-ops
+          -if !has_followed
+            %a.do-follow{:'data-id'=>user_id,:href=>'javascript:;'} <span class='icon'></span><span>添加到联系人</span>
+            %a.do-unfoll{:'data-id'=>user_id,:href=>'javascript:;',:style=>'display:none;'} <span class='icon'></span><span>取消此联系人</span>
+          -else
+            %a.do-follow{:'data-id'=>user_id,:href=>'javascript:;',:style=>'display:none;'} <span class='icon'></span><span>添加到联系人</span>
+            %a.do-unfoll{:'data-id'=>user_id,:href=>'javascript:;'} <span class='icon'></span><span>取消此联系人</span>
+
+  .timeline-end
+    .icon
+    .lbg
+    .now=Time.now

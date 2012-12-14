@@ -1,0 +1,6 @@
+-photo_id  = photo.id
+-photo_url = photo.image.url(:s100)
+
+.photo{:'data-photo-id'=>photo_id}
+  %img{:src=>photo_url}
+  .close

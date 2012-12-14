@@ -1,0 +1,65 @@
+-#use 主题列表
+-#see 登录后的首页->中间栏的主题列表
+
+-hide_creator ||= false
+
+.page-ogrid.collection-feeds{:style=>'opacity:0;'}
+  -if feeds.blank?
+    .list-blank 这里还没有主题
+  -else
+    -feeds.each do |feed|
+      -feed_id = feed.id
+      -feed_format = FeedFormat.new(feed)
+
+      -title_short = feed_format.title_brief
+      -has_title = !title_short.blank?
+
+      -detail = feed_format.short_detail_brief
+      -has_detail = !detail.blank?
+
+      -comment_count = feed.comments.count
+      -has_comment = comment_count > 0
+
+      -location = feed.location
+      -has_location = !location.blank?
+
+      -feed_link = "/feeds/#{feed_id}"
+
+      -timeline_icon_class = feed_format.timeline_icon_class
+
+      .feed{:'data-id'=>feed_id, :'data-col-count'=>2}
+
+        .timeline-node{:class=>timeline_icon_class, :style=>'display:none;'}
+          .icon
+          .arrow
+
+        -if !hide_creator
+          .creator
+            .avatar=avatar(feed.creator,:tiny)
+            .c-meta
+              .name=userlink(feed.creator)
+              .created-at
+                %a{:href=>feed_link}=jtime(feed.created_at)
+
+        =render_with_error_msg '照片加载错误','/feeds/parts/grid_photos',:feed=>feed
+
+        -if has_title
+          .title.wordwrap=link_to title_short,"/feeds/#{feed_id}"
+
+        -if has_detail
+          .detail.wordwrap=detail
+
+        .footer-links
+          -#if has_location
+          -#  .location=location
+
+          -if has_comment
+            .comment-count
+              .icon
+              %a{:href=>feed_link}=comment_count
+          .show-detail
+            .icon
+            %a{:href=>feed_link} 查看全文
+
+.page-ogrid-feeds-load-more{:style=>'display:none;',:'data-next-page'=>2}
+  %a.load{:href=>'javascript:;'} <div class='icon'></div><div>读取更早的内容</div>

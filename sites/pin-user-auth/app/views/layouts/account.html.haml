@@ -1,0 +1,18 @@
+!!! 5
+%html{:lang=>"zh"}
+  =render 'layouts/parts/head'
+
+  %body.echo.gray
+    .page-wrap
+      .page-container
+        =render 'layouts/parts/account_nav'
+        .page-content.container_24
+          =yield
+
+    =render 'layouts/parts/phide'
+    =render 'layouts/parts/footer'
+
+    =javascript_include_tag pin_url_for('ui',"javascripts/lib/prototype/protoaculous.1.8.3.min.js?#{ENV['RAILS_ASSET_ID']}")
+    =render 'layouts/parts/javascripts'
+    =javascript_include_tag pin_url_for('ui', "javascripts/lib/jquery/jquery_ujs.js?#{ENV['RAILS_ASSET_ID']}")
+
