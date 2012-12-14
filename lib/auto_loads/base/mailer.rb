@@ -6,9 +6,4 @@ class Mailer < ActionMailer::Base
     mail(:to => user.email, :subject => "来自MINDPIN的密码重置邮件")
   end
 
-  def apply_confirm(email, name, code)
-    @name = name
-    @code = code
-    mail(:to => email, :subject => "MINDPIN社区内测邀请激活码")
-  end
 end
